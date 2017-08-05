@@ -1,11 +1,8 @@
 import * as Vue from 'vue';
 import * as Vuex from 'vuex';
 import Component from 'vue-class-component';
-import { store } from "../store/store";
-
 
 @Component({
-  store,
   template: `
     <div>
       <h1>geologic</h1>
@@ -15,5 +12,4 @@ import { store } from "../store/store";
   `,
 })
 export class GeoLogicComponent extends Vue {
-  public store = store;
 }
