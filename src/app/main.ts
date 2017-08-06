@@ -1,10 +1,9 @@
 import * as Vue from 'vue';
 import * as VueRouter from 'vue-router';
 import * as Vuex from 'vuex';
-import * as vScroll from 'vue-scroll'
+import * as vScroll from 'vue-scroll';
 import { router } from './router';
 import { store } from './store/store';
-
 
 /**
  * view instance mount dom node selector
