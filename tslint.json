@@ -15,6 +15,7 @@
           "functions": "always"
         }
       }
-    ]
+    ],
+    "member-access": [true, "check-accessor"]
   }
 }
