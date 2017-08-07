@@ -1,0 +1,12 @@
+@mixin full-reset() {
+  box-sizing: border-box;
+  all: initial;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin reset() {
+  @include full-reset();
+  font: inherit;
+}
