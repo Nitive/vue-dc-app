@@ -1,8 +1,8 @@
 import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Component, Prop } from 'vue-property-decorator';
 import './typeahead.style.scss';
 
-@Component<Vue>({
+@Component({
   template: `
     <div class="typeahead">
       <slot name="input">
@@ -12,54 +12,40 @@ import './typeahead.style.scss';
           :autofocus="autofocus"
           :value="value"
           @input="$emit('input', $event.target.value)"
-          @focus="popupVisible = true"
+          @focus="suggestionsVisible = true"
           @blur="handleBlur"
         />
       </slot>
-      <ul v-if="popupVisible" class="typeahead__popup">
-        <slot name="item">
+      <ul v-if="suggestionsVisible && suggestions.length" class="typeahead__suggestions">
+        <slot name="suggestion">
           <li
-            class="typeahead__item"
-            v-for="item of filteredItems"
-            @click="$emit('input', item)"
-          >{{ item }}</li>
+            class="typeahead__suggestion"
+            v-for="suggestion of suggestions"
+            @click="select(suggestion)"
+          >{{ suggestion }}</li>
         </slot>
       </ul>
     </div>
   `,
-  props: {
-    value: {
-      type: String,
-      required: true,
-    },
-    suggestions: {
-      type: Array,
-      required: true,
-    },
-    autofocus: {
-      type: Boolean,
-    },
-  },
 })
 export class DcTypeahead extends Vue {
-  // props
+  @Prop({ type: String, required: true })
   public value: string;
+  @Prop({ type: Array, required: true })
   public suggestions: string[];
+  @Prop(Boolean)
   public autofocus: boolean;
 
-  // state
-  public popupVisible = false;
-
-  public get filteredItems() {
-    if (!this.value) {
-      return [];
-    }
-    return this.suggestions.filter(suggestion => suggestion.startsWith(this.value));
-  }
+  public suggestionsVisible = false;
 
   public handleBlur() {
     setTimeout(() => {
-      this.popupVisible = false;
-    }, 100);
+      this.suggestionsVisible = false;
+    }, 200);
+  }
+
+  public select(suggestion: string) {
+    this.$emit('input', suggestion);
+    this.$emit('select', suggestion);
   }
 }

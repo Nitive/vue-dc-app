@@ -16,7 +16,7 @@
     background-color: white;
   }
 
-  &__popup {
+  &__suggestions {
     @include reset();
     position: absolute;
     left: 0;
@@ -28,7 +28,7 @@
     list-style: none;
   }
 
-  &__item {
+  &__suggestion {
     @include reset();
     display: block;
     padding: 10px;
