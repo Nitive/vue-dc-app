@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-import debounce from 'lodash/debounce';
+import debounce from 'debounce-promise';
 import memoize from 'memoizee';
 import { Store, types } from '../../store/store';
 import { DcAsyncTypeahead } from '../../ui/async-typeahead/async-typeahead.component';
@@ -62,10 +62,10 @@ export class DcGeoSearch extends Vue {
 
     this.store.commit(types.startLoading);
 
-    return (this.debouncedRequest(search) || Promise.resolve([]))
-      .then(suggestion => {
+    return this.debouncedRequest(search)
+      .then(suggestions => {
         this.store.commit(types.stopLoading);
-        return suggestion;
+        return suggestions;
       })
       .catch(console.error);
   }

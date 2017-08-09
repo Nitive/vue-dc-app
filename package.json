@@ -55,9 +55,9 @@
   "dependencies": {
     "@types/lodash": "^4.14.72",
     "@types/memoizee": "^0.4.1",
+    "debounce-promise": "^3.0.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^20.0.4",
-    "lodash": "^4.17.4",
     "memoizee": "^0.4.5",
     "ts-jest": "^20.0.10",
     "tslint": "^5.5.0",
