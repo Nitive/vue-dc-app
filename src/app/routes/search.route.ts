@@ -1,1 +1,1 @@
-export { SearchPage as SearchRoute } from '../pages/search/search.page';
+export { DcSearchPage as DcSearchRoute } from '../pages/search/search.page';

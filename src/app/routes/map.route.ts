@@ -1,4 +1,4 @@
-import { MapPage } from '../pages/map/map.page';
+import { DcMapPage } from '../pages/map/map.page';
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
@@ -7,10 +7,10 @@ import { Component } from 'vue-property-decorator';
     <map-page :lat="lat" :lon="lon" :address="address" />
   `,
   components: {
-    MapPage,
+    DcMapPage,
   },
 })
-export class MapRoute extends Vue {
+export class DcMapRoute extends Vue {
   public get lat() {
     return Number(this.$route.query.lat);
   }

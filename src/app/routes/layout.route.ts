@@ -12,5 +12,5 @@ import { DcLayout } from '../components/layout/layout.component';
     DcLayout,
   },
 })
-export class LayoutRoute extends Vue {
+export class DcLayoutRoute extends Vue {
 }

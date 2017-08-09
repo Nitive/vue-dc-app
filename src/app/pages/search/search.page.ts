@@ -14,5 +14,5 @@ import { DcBox } from '../../ui/box/box.component';
     DcBox,
   },
 })
-export class SearchPage extends Vue {
+export class DcSearchPage extends Vue {
 }

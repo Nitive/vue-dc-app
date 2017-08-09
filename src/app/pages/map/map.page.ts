@@ -17,7 +17,7 @@ import './map.style.scss';
     DcMap,
   },
 })
-export class MapPage extends Vue {
+export class DcMapPage extends Vue {
   @Prop({ type: Number, required: true })
   public lat: string;
 

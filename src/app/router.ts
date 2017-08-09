@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { RouteConfig } from 'vue-router/types/router';
-import { SearchRoute } from './routes/search.route';
-import { MapRoute } from './routes/map.route';
-import { LayoutRoute } from './routes/layout.route';
+import { DcSearchRoute } from './routes/search.route';
+import { DcMapRoute } from './routes/map.route';
+import { DcLayoutRoute } from './routes/layout.route';
 
 Vue.use(VueRouter);
 
@@ -13,10 +13,10 @@ Vue.use(VueRouter);
 const routes: RouteConfig[] = [
   {
     path: '',
-    component: LayoutRoute,
+    component: DcLayoutRoute,
     children: [
-      { path: '/map', name: 'map', component: MapRoute },
-      { path: '/search', name: 'search', component: SearchRoute },
+      { path: '/map', name: 'map', component: DcMapRoute },
+      { path: '/search', name: 'search', component: DcSearchRoute },
       { path: '/', redirect: { name: 'search' } },
     ],
   },
