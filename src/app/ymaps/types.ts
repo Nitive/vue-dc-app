@@ -20,6 +20,7 @@ export interface MapOptions {
 }
 
 export interface Map {
+  geoObjects: GeoObjects;
 }
 
 export interface Geometry {
@@ -30,12 +31,21 @@ export interface GeoObject {
   geometry: Geometry;
 }
 
+export interface PlacemarkOptions {
+  hintContent: string;
+}
+
+export interface Placemark {
+}
+
 export interface GeoObjects {
   get(index: number): GeoObject;
+  add(placemark: Placemark): void;
 }
 
 export interface Ymaps {
   Map: new(id: string, options: MapOptions) => Map;
+  Placemark: new(center: YmapsCoords, placemarkOptions: PlacemarkOptions) => Placemark;
   ready(cb: () => void): void;
   load(modules: string[], cb: (ymaps: Ymaps) => void, errback: (err: Error) => void): void;
   suggest(query: string, options?: YmapsSuggestOptions): Promise<YmapsSuggestion[]>;

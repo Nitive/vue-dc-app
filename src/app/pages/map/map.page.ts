@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 import { DcMap } from '../../ui/map/map.component';
-import { Map, Ymaps } from '../../ymaps/types';
+import { Map, Ymaps, YmapsCoords } from '../../ymaps/types';
 import './map.style.scss';
 
 @Component({
@@ -19,15 +19,15 @@ import './map.style.scss';
 })
 export class DcMapPage extends Vue {
   @Prop({ type: Number, required: true })
-  public lat: string;
+  public lat: number;
 
   @Prop({ type: Number, required: true })
-  public lon: string;
+  public lon: number;
 
   @Prop({ type: String, required: true })
   public address: string;
 
-  public get mapCenter() {
+  public get mapCenter(): YmapsCoords {
     return [this.lat, this.lon];
   }
 
