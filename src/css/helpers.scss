@@ -3,7 +3,6 @@ $color-blue: #2b87db;
 $color-dark-gray: #203444;
 
 @mixin full-reset() {
-  box-sizing: border-box;
   all: initial;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
