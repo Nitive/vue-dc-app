@@ -41,7 +41,7 @@ import './typeahead.style.scss';
     },
   },
 })
-export class Typeahead extends Vue {
+export class DcTypeahead extends Vue {
   // props
   public value: string;
   public suggestions: string[];

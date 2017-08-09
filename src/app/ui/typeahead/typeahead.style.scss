@@ -3,7 +3,7 @@
 .typeahead {
   @include reset();
   position: relative;
-  display: block;
+  display: inline-block;
 
   &__input {
     @include reset();

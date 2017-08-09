@@ -1,0 +1,10 @@
+@import '../../../css/helpers';
+
+.button {
+  @include reset();
+  border: solid 1px $color-blue;
+  cursor: pointer;
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
