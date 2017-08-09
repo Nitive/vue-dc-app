@@ -1,10 +1,13 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
+import debounce from 'lodash/debounce';
+import memoize from 'memoizee';
+import { Store, types } from '../../store/store';
 import { DcAsyncTypeahead } from '../../ui/async-typeahead/async-typeahead.component';
 import { DcButton } from '../../ui/button/button.component';
 import { DcBox } from '../../ui/box/box.component';
-import './geosearch.style.scss';
 import { YmapsApi } from '../../ymaps/ymaps-api';
+import './geosearch.style.scss';
 
 const DEBOUNCE_TIME = 1380;
 
@@ -14,8 +17,7 @@ const DEBOUNCE_TIME = 1380;
       <dc-async-typeahead
         autofocus
         v-model="search"
-        :debounce-time="${DEBOUNCE_TIME}"
-        :requestSuggestions="requestSuggestions"
+        :requestSuggestions="test"
         @select="select"
       />
       <dc-box :left="10">
@@ -34,6 +36,7 @@ export class DcGeoSearch extends Vue {
   public selected = false;
 
   public ymapsApi: YmapsApi;
+  public store: Store = this.$store;
 
   public mounted() {
     this.ymapsApi = new YmapsApi();
@@ -41,13 +44,30 @@ export class DcGeoSearch extends Vue {
   }
 
   public requestSuggestions(search: string) {
+    return this.ymapsApi.loadYmaps(['suggest'])
+      .then(ymaps => ymaps.suggest(search))
+      .then(suggestions => suggestions.map(s => s.displayName));
+  }
+
+  // tslint:disable-next-line:member-ordering
+  public debouncedRequest = debounce(
+    memoize(this.requestSuggestions, { max: 1, normalizer: ([str]: [string]) => str.toLowerCase() }),
+    DEBOUNCE_TIME,
+  );
+
+  public test(search: string) {
     if (search.length <= 3) {
       return Promise.resolve([]);
     }
 
-    return this.ymapsApi.loadYmaps(['suggest'])
-      .then(ymaps => ymaps.suggest(search))
-      .then(suggestions => suggestions.map(s => s.displayName));
+    this.store.commit(types.startLoading);
+
+    return (this.debouncedRequest(search) || Promise.resolve([]))
+      .then(suggestion => {
+        this.store.commit(types.stopLoading);
+        return suggestion;
+      })
+      .catch(console.error);
   }
 
   public select() {
@@ -66,6 +86,7 @@ export class DcGeoSearch extends Vue {
         const lat = String(coords[0]);
         const lon = String(coords[1]);
         this.$router.push({ name: 'map', query: { lat, lon, name: this.search } });
-      });
+      })
+      .catch(console.error);
   }
 }

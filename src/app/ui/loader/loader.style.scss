@@ -1,9 +1,6 @@
 @import '../../../css/helpers.scss';
 
-.title {
+.dc-loader {
   @include reset();
-  font-size: 34px;
-  font-weight: 600;
   display: inline-block;
-  color: dimgray;
 }
