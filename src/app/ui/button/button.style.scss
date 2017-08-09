@@ -3,8 +3,18 @@
 .button {
   @include reset();
   border: solid 1px $color-blue;
+  background-color: $color-light-blue;
   cursor: pointer;
   height: 40px;
   padding-left: 10px;
   padding-right: 10px;
+
+  &:hover {
+    background-color: $color-blue;
+  }
+
+  &:disabled {
+    background-color: lightgray;
+    border-color: dimgray;
+  }
 }
