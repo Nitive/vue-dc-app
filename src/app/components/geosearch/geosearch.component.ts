@@ -17,7 +17,7 @@ const DEBOUNCE_TIME = 1380;
       <dc-async-typeahead
         autofocus
         v-model="search"
-        :requestSuggestions="test"
+        :requestSuggestions="requestSuggestions"
         @select="select"
       />
       <dc-box :left="10">
@@ -43,7 +43,7 @@ export class DcGeoSearch extends Vue {
     this.ymapsApi.preloadYmaps(['suggest']);
   }
 
-  public requestSuggestions(search: string) {
+  public getSuggestions(search: string) {
     return this.ymapsApi.loadYmaps(['suggest'])
       .then(ymaps => ymaps.suggest(search))
       .then(suggestions => suggestions.map(s => s.displayName));
@@ -51,11 +51,11 @@ export class DcGeoSearch extends Vue {
 
   // tslint:disable-next-line:member-ordering
   public debouncedRequest = debounce(
-    memoize(this.requestSuggestions, { max: 1, normalizer: ([str]: [string]) => str.toLowerCase() }),
+    memoize(this.getSuggestions, { max: 1, normalizer: ([str]: [string]) => str.toLowerCase() }),
     DEBOUNCE_TIME,
   );
 
-  public test(search: string) {
+  public requestSuggestions(search: string) {
     if (search.length <= 3) {
       return Promise.resolve([]);
     }
