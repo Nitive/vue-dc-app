@@ -65,7 +65,7 @@ export class DcGeoSearch extends Vue {
       .then(coords => {
         const lat = String(coords[0]);
         const lon = String(coords[1]);
-        this.$router.push({ name: 'map', query: { lat, lon }, params: { displayName: this.search } });
+        this.$router.push({ name: 'map', query: { lat, lon, name: this.search } });
       });
   }
 }

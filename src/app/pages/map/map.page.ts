@@ -31,12 +31,6 @@ export class DcMapPage extends Vue {
     return [this.lat, this.lon];
   }
 
-  public created() {
-    if (!this.lat || !this.lon || !this.address) {
-      this.$router.replace({ path: '/' });
-    }
-  }
-
   public mapInit({ ymaps, map }: { ymaps: Ymaps, map: Map }) {
     const placemark = new ymaps.Placemark(this.mapCenter, { hintContent: this.address });
     map.geoObjects.add(placemark);

@@ -4,7 +4,7 @@ import { Component } from 'vue-property-decorator';
 
 @Component({
   template: `
-    <map-page :lat="lat" :lon="lon" :address="address" />
+    <dc-map-page :lat="lat" :lon="lon" :address="address" />
   `,
   components: {
     DcMapPage,
@@ -20,6 +20,12 @@ export class DcMapRoute extends Vue {
   }
 
   public get address() {
-    return this.$route.params.displayName;
+    return this.$route.query.name;
+  }
+
+  public created() {
+    if (!this.lat || !this.lon || !this.address) {
+      this.$router.replace({ path: '/' });
+    }
   }
 }
