@@ -5,25 +5,21 @@ import './typeahead.style.scss';
 @Component({
   template: `
     <div class="typeahead">
-      <slot name="input">
-        <input
-          class="typeahead__input"
-          type="text"
-          :autofocus="autofocus"
-          :value="value"
-          @input="$emit('input', $event.target.value)"
-          @focus="suggestionsVisible = true"
-          @blur="handleBlur"
-        />
-      </slot>
+      <input
+        class="typeahead__input"
+        type="text"
+        :autofocus="autofocus"
+        :value="value"
+        @input="$emit('input', $event.target.value)"
+        @focus="suggestionsVisible = true"
+        @blur="handleBlur"
+      />
       <ul v-if="suggestionsVisible && suggestions.length" class="typeahead__suggestions">
-        <slot name="suggestion">
-          <li
-            class="typeahead__suggestion"
-            v-for="suggestion of suggestions"
-            @click="select(suggestion)"
-          >{{ suggestion }}</li>
-        </slot>
+        <li
+          class="typeahead__suggestion"
+          v-for="suggestion of suggestions"
+          @click="select(suggestion)"
+        >{{ suggestion }}</li>
       </ul>
     </div>
   `,
