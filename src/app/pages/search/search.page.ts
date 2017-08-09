@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { DcGeoSearch } from '../components/geosearch.component';
-import { DcBox } from '../ui/box/box.component';
+import { DcGeoSearch } from '../../components/geosearch/geosearch.component';
+import { DcBox } from '../../ui/box/box.component';
 
 @Component({
   template: `

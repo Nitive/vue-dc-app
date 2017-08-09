@@ -1,16 +1,16 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import { DcLayout } from '../components/layout/layout.component';
 
 @Component({
   template: `
-    <div>
-      <nav>
-        <router-link :to="{ name: 'search' }">/search</router-link>
-        <router-link :to="{ name: 'map' }">/map</router-link>
-      </nav>
+    <dc-layout>
       <router-view />
-    </div>
+    </dc-layout>
   `,
+  components: {
+    DcLayout,
+  },
 })
 export class LayoutRoute extends Vue {
 }
