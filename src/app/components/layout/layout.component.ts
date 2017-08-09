@@ -7,7 +7,9 @@ import { DcBox } from '../../ui/box/box.component';
   template: `
     <div>
       <dc-box :x="20">
-        <dc-title>Vue map search</dc-title>
+        <router-link to="{ name: 'search' }">
+          <dc-title>Vue map search</dc-title>
+        </router-link>
       </dc-box>
       <slot />
     </div>
