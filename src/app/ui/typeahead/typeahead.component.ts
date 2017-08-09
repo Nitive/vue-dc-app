@@ -1,8 +1,8 @@
-import * as Vue from 'vue';
+import Vue from 'vue';
 import Component from 'vue-class-component';
 import './typeahead.style.scss';
 
-@Component({
+@Component<Vue>({
   template: `
     <div class="typeahead">
       <slot name="input">
@@ -28,8 +28,11 @@ import './typeahead.style.scss';
     </div>
   `,
   props: {
-    value: String,
-    values: {
+    value: {
+      type: String,
+      required: true,
+    },
+    suggestions: {
       type: Array,
       required: true,
     },
@@ -41,7 +44,7 @@ import './typeahead.style.scss';
 export class Typeahead extends Vue {
   // props
   public value: string;
-  public values: string[];
+  public suggestions: string[];
   public autofocus: boolean;
 
   // state
@@ -51,7 +54,7 @@ export class Typeahead extends Vue {
     if (!this.value) {
       return [];
     }
-    return this.values.filter(item => item.startsWith(this.value));
+    return this.suggestions.filter(suggestion => suggestion.startsWith(this.value));
   }
 
   public handleBlur() {
