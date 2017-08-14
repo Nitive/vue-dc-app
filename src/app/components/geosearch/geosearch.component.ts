@@ -72,12 +72,8 @@ export class DcGeoSearch extends Vue {
 
   public submit() {
     this.$ymaps.loadYmaps(['geocode'])
-      .then(ymaps => {
-        return ymaps.geocode(this.search);
-      })
-      .then(res => {
-        return res.geoObjects.get(0).geometry.getCoordinates();
-      })
+      .then(ymaps => ymaps.geocode(this.search))
+      .then(res => res.geoObjects.get(0).geometry.getCoordinates())
       .then(coords => {
         const lat = String(coords[0]);
         const lon = String(coords[1]);
