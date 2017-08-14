@@ -13,13 +13,8 @@
     "noImplicitReturns": true,
     "allowSyntheticDefaultImports": true,
     "typeRoots": [
-      "../node_modules/@types"
-    ],
-    "types": [
-      "vue",
-      "axios",
-      "node",
-      "jasmine"
+      "./types/",
+      "./node_modules/@types/"
     ],
     "lib": ["es6", "dom"]
   },

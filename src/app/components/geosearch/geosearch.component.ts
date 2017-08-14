@@ -6,7 +6,6 @@ import { Store, types } from '../../store/store';
 import { DcAsyncTypeahead } from '../../ui/async-typeahead/async-typeahead.component';
 import { DcButton } from '../../ui/button/button.component';
 import { DcBox } from '../../ui/box/box.component';
-import { YmapsApi } from '../../ymaps/ymaps-api';
 import './geosearch.style.scss';
 
 const DEBOUNCE_TIME = 1380;
@@ -34,17 +33,14 @@ const DEBOUNCE_TIME = 1380;
 export class DcGeoSearch extends Vue {
   public search = '';
   public selected = false;
-
-  public ymapsApi: YmapsApi;
   public store: Store = this.$store;
 
   public mounted() {
-    this.ymapsApi = new YmapsApi();
-    this.ymapsApi.preloadYmaps(['suggest']);
+    this.$ymaps.preloadYmaps(['suggest']);
   }
 
   public getSuggestions(search: string) {
-    return this.ymapsApi.loadYmaps(['suggest'])
+    return this.$ymaps.loadYmaps(['suggest'])
       .then(ymaps => ymaps.suggest(search))
       .then(suggestions => suggestions.map(s => s.displayName));
   }
@@ -75,7 +71,7 @@ export class DcGeoSearch extends Vue {
   }
 
   public submit() {
-    this.ymapsApi.loadYmaps(['geocode'])
+    this.$ymaps.loadYmaps(['geocode'])
       .then(ymaps => {
         return ymaps.geocode(this.search);
       })

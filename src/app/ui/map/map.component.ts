@@ -18,9 +18,7 @@ export class DcMap extends Vue {
   public zoom: number;
 
   public async mounted() {
-    const { YmapsApi } = await import('../../ymaps/ymaps-api');
-    const ymapsApi = new YmapsApi();
-    const ymaps = await ymapsApi.loadYmaps(['Map']);
+    const ymaps = await this.$ymaps.loadYmaps(['Map']);
     const map = new ymaps.Map(this.mapId, { center: this.center, zoom: this.zoom });
 
     this.$emit('init', { map, ymaps });
