@@ -70,9 +70,13 @@ export class DcGeoSearch extends Vue {
       .then(ymaps => ymaps.geocode(this.search))
       .then(res => res.geoObjects.get(0).geometry.getCoordinates())
       .then(coords => {
-        const lat = String(coords[0]);
-        const lon = String(coords[1]);
-        this.$router.push({ name: 'map', query: { lat, lon, name: this.search } });
+        const lat = coords[0];
+        const lon = coords[1];
+        const locationData = { lat, lon, name: this.search };
+        const query = { lat: String(locationData.lat), lon: String(locationData.lon), name: locationData.name };
+
+        this.store.commit(types.setLastSearchedAddress, locationData);
+        this.$router.push({ name: 'map', query });
       })
       .catch(console.error);
   }

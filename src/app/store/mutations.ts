@@ -4,6 +4,7 @@ import { AppState } from './state';
 export const types = {
   startLoading: 'startLoading',
   stopLoading: 'stopLoading',
+  setLastSearchedAddress: 'setLastSearchedAddress',
 };
 
 export const mutations: MutationTree<AppState> = {
@@ -12,5 +13,8 @@ export const mutations: MutationTree<AppState> = {
   },
   [types.stopLoading](state) {
     state.loading = false;
+  },
+  [types.setLastSearchedAddress](state, locationData) {
+    state.lastSearchedLocation = locationData;
   },
 };
