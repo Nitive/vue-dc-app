@@ -1,0 +1,7 @@
+.layout {
+  &__title {
+    &:hover {
+      border-bottom: solid 2px gray;
+    }
+  }
+}
