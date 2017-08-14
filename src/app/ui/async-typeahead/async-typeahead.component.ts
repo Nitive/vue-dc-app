@@ -1,11 +1,11 @@
-import { Component, Prop, Watch, Vue, Provide } from 'vue-property-decorator';
+import { Component, Prop, Vue, Provide } from 'vue-property-decorator';
 import { DcTypeahead } from '../typeahead/typeahead.component';
 
 @Component({
   template: `
     <dc-typeahead
       :value="value"
-      @input="value => $emit('input', value)"
+      @input="input"
       @select="select"
       :suggestions="suggestions"
     />
@@ -24,8 +24,9 @@ export class DcAsyncTypeahead extends Vue {
   @Provide()
   public suggestions: string[] = [];
 
-  @Watch('value')
-  public onValueChange(value: string) {
+  public input(value: string) {
+    this.$emit('input', value);
+
     this.requestSuggestions(value)
       .then(result => {
         this.suggestions = result;

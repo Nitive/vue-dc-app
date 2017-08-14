@@ -41,7 +41,6 @@ export class DcTypeahead extends Vue {
   }
 
   public select(suggestion: string) {
-    this.$emit('input', suggestion);
     this.$emit('select', suggestion);
   }
 }

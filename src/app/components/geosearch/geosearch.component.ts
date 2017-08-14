@@ -39,18 +39,6 @@ export class DcGeoSearch extends Vue {
     this.$ymaps.preloadYmaps(['suggest']);
   }
 
-  public getSuggestions(search: string) {
-    return this.$ymaps.loadYmaps(['suggest'])
-      .then(ymaps => ymaps.suggest(search))
-      .then(suggestions => suggestions.map(s => s.displayName));
-  }
-
-  // tslint:disable-next-line:member-ordering
-  public debouncedRequest = debounce(
-    memoize(this.getSuggestions, { max: 1, normalizer: ([str]: [string]) => str.toLowerCase() }),
-    DEBOUNCE_TIME,
-  );
-
   public requestSuggestions(search: string) {
     if (search.length <= 3) {
       return Promise.resolve([]);
@@ -66,7 +54,8 @@ export class DcGeoSearch extends Vue {
       .catch(console.error);
   }
 
-  public select() {
+  public select(value: string) {
+    this.search = value;
     this.selected = true;
   }
 
@@ -80,5 +69,17 @@ export class DcGeoSearch extends Vue {
         this.$router.push({ name: 'map', query: { lat, lon, name: this.search } });
       })
       .catch(console.error);
+  }
+
+  // tslint:disable-next-line:member-ordering
+  private debouncedRequest = debounce(
+    memoize(this.getSuggestions, { max: 1, normalizer: ([str]: [string]) => str.toLowerCase() }),
+    DEBOUNCE_TIME,
+  );
+
+  private getSuggestions(search: string) {
+    return this.$ymaps.loadYmaps(['suggest'])
+      .then(ymaps => ymaps.suggest(search))
+      .then(suggestions => suggestions.map(s => s.displayName));
   }
 }
