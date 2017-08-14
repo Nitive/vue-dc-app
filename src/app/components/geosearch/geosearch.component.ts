@@ -15,8 +15,9 @@ const DEBOUNCE_TIME = 1380;
     <form action="/map" @submit.prevent="submit" class="geosearch">
       <dc-async-typeahead
         autofocus
-        v-model="search"
+        :value="search"
         :requestSuggestions="requestSuggestions"
+        @input="input"
         @select="select"
       />
       <dc-box :left="10">
@@ -52,6 +53,11 @@ export class DcGeoSearch extends Vue {
         return suggestions;
       })
       .catch(console.error);
+  }
+
+  public input(value: string) {
+    this.search = value;
+    this.selected = false;
   }
 
   public select(value: string) {
