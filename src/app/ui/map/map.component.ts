@@ -11,7 +11,7 @@ export class DcMap extends Vue {
   @Prop({ type: String, required: true })
   public mapId: string;
 
-  @Prop({ type: Array, default: [55.76, 37.64] })
+  @Prop({ type: Array, default: () => [55.76, 37.64] })
   public center: YmapsCoords;
 
   @Prop({ type: Number, default: 7 })
