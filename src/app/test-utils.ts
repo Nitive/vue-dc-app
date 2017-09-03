@@ -1,5 +1,4 @@
-
-import Vue from 'vue/dist/vue.common';
+import Vue from 'vue';
 
 export function mount<T, U>(Component: T, propsData: U) {
   const Ctor = Vue.extend(Component);
@@ -9,14 +8,19 @@ export function mount<T, U>(Component: T, propsData: U) {
   vm.$mount(container);
 
   return {
-    vm,
+    vm: vm as any,
     clear() {
       document.body.innerHTML = '';
     },
   };
 }
 
-export { default as Vue } from 'vue/dist/vue.common';
+export { Vue };
 
-export const $ = document.querySelector.bind(document);
-export const $$ = document.querySelectorAll.bind(document);
+export function $<T extends Element>(selector: string): T {
+  return document.querySelector(selector) as T;
+}
+
+export function $$<T extends Element>(selector: string): NodeListOf<T> {
+  return document.querySelectorAll(selector) as NodeListOf<T>;
+}
