@@ -17,3 +17,6 @@ export function mount<T, U>(Component: T, propsData: U) {
 }
 
 export { default as Vue } from 'vue/dist/vue.common';
+
+export const $ = document.querySelector.bind(document);
+export const $$ = document.querySelectorAll.bind(document);

@@ -1,4 +1,4 @@
-import { Vue, mount } from '../../test-utils';
+import { Vue, mount, $, $$ } from '../../test-utils';
 import { DcTypeahead } from './typeahead.component';
 
 describe('typeahead', () => {
@@ -6,7 +6,7 @@ describe('typeahead', () => {
     const propsData = { value: 'o', suggestions: ['one', 'two', 'one1'] };
     const { clear } = mount(DcTypeahead, propsData);
 
-    const input = document.body.querySelector('input');
+    const input = $('input');
     expect(input).toBeTruthy();
     expect(input.value).toBe('o');
     clear();
@@ -16,11 +16,11 @@ describe('typeahead', () => {
     const propsData = { value: '', suggestions: ['one', 'two', 'one1'] };
     const { clear } = mount(DcTypeahead, propsData);
 
-    const input = document.body.querySelector('input');
+    const input = $('input');
     input.focus();
     await Vue.nextTick();
 
-    const ul = document.body.querySelector('ul');
+    const ul = $('ul');
     expect(ul).toBeTruthy();
     clear();
   });
@@ -29,16 +29,16 @@ describe('typeahead', () => {
     const propsData = { value: '', suggestions: ['one', 'two', 'one1'] };
     const { vm, clear } = mount(DcTypeahead, propsData);
 
-    const input = document.body.querySelector('input');
+    const input = $('input');
     input.focus();
 
     await Vue.nextTick();
-    expect(document.body.querySelectorAll('li').length).toBe(3);
+    expect($$('li').length).toBe(3);
 
     vm.suggestions = ['one'];
     await Vue.nextTick();
 
-    expect(document.body.querySelectorAll('li').length).toBe(1);
+    expect($$('li').length).toBe(1);
     clear();
   });
 });
