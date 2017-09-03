@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-export function mount<T, U>(Component: T, propsData: U) {
+export function mount<T, U>(Component: T, propsData: U = {} as U) {
   const Ctor = Vue.extend(Component);
   const vm = new Ctor({ propsData });
   const container = document.createElement('div');
